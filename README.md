@@ -8,7 +8,7 @@ https://github.com/arikpoz/deep-visualization-toolbox
 The original toolbox repository by Yosinski can you find here:  
 https://github.com/yosinski/deep-visualization-toolbox
 
-Yosinski has also published a publication on his software:
+Yosinski has also published a paper on his software:
 ```
 @inproceedings{yosinski-2015-ICML-DL-understanding-neural-networks,
 Author = {Jason Yosinski and Jeff Clune and Anh Nguyen and Thomas Fuchs and Hod Lipson},
