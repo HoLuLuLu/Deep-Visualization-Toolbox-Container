@@ -23,13 +23,13 @@ https://github.com/arikpoz/caffe/
 The official version by BVLC can you find here:  
 https://github.com/BVLC/caffe  
 
-## Why use this Dockerfile or container
+## Why use this Dockerfile or Container
 For the docker container we merge current master branch of the official caffe into the master branch of Poznanskis caffe version by using git (without any commit or push, so it's only local).
 Cause of this you get the newest caffe version with every modifications needed for the toolbox.
 This allows you to use modern Cuda an operating system instead of outdated versions.
 So we get a better compatibility for newer networks.
 
-## Get the Docker container
+## Get the Docker Container
 The explained methods are created for Linux systems (specially for Ubuntu) with full X11-Server installed (like most desktop systems) and Nvidia GPU included.
 The use on other systems may vary.
 
@@ -44,7 +44,7 @@ On Ubuntu you can easily install ist with:
 sudo apt-get install git
 ```
 
-### Method 1: get prebuilded docker container (recommended)
+### Method 1: Get prebuilded Docker Container (recommended)
 This is the easiest way to install the toolbox.
 You only have to run the container with your docker distribution and it will download the ready configured software.
 For this use the following command:  
@@ -80,7 +80,7 @@ Congratulations, you have installed the toolbox and can now get into your contai
 Tip:
 After logout you have to start the container by `docker start dvtb-arikpoz` and then execute the bash to get in by `docker start -it dvtb-arikpoz`.
 
-### Method 2: build the docker container by your own
+### Method 2: Build the Docker Container by your own
 This method only a bit more complicated than the first one and you can use the newest version of caffe but it's more risky because docker have to download, install and compile many things from the scratch.  
 
 First you have to clone this repository with git:
@@ -89,6 +89,7 @@ git clone https://github.com/HoLuLuLu/Deep-Visualization-Toolbox-Container
 ```
 Change into it and let docker build the container:
 ```
+cd Deep-Visualization-Toolbox-Container
 docker build -t dvtb .
 ```
 You can change the name of the image by using the one you want instead of dvtb.
@@ -123,3 +124,38 @@ So, use `ls -la /dev | grep nvidia` to get all of your nvidia devices to use.
 After it you are in the bash of your container.  
 
 Have Fun.
+
+## Run and Configure the Toolbox
+Everything in this section happens in the directory /opt/deep-visualization-toolbox of the container.
+
+## First Run
+Before you can start the toolbox the first time you have to adjust the user settings (see section "Configure User Settings").
+There is an template with default values.
+So, you only have to rename it with:
+```
+cp settings_user.py.example settings_user.py
+```
+If you want to use the default settings you only have to run the toolbox by:
+```
+./run_toolbox.py
+```
+Otherwise you can change it with a texeditor of your choice.
+In the container there is no editor installed by default, so you have to do it for your own.  
+This are the installation commands for three popular texteditors in Ubuntu, chose one of them:
+```
+sudo apt-get install gedit # GUI-based easy-to-use editor and userfriendly (requires much memory)
+sudo apt-get install nano  # Terminal-based easy-to-use editor without mouse control, basic and efficient
+sudo apt-get install vim   # Terminal-based editor with big functionality but hard for beginner
+```
+For more information about user settings see section "Configure User Settings" below.
+
+### Configure User Settings
+The user specific settings are saved in the settings_user.py file in the root folder of the toolbox.
+There are some simple options you can configure:  
+
+| Option   |      Values   |  Description |
+|------------------------------|:-------------:|----------------------------------------------------|
+| caffevis_mode_gpu |  True or False | If True, the toolbox runs on GPU, else on CPU. |
+| caffevis_gpu_id |    device number   |   Sets the device id of the computation device (mostly the GPU). |
+| model_to_load | String with model name |  This sets the name of the model, which would be loaded by the toolbox. There have to exist also a settings_modelname.py in model_settings directory of the toolbox with model specific settings. |
+| input_updater_capture_device | device number or None |  Sets the device id of a camera, which can be used as input stream in the toolbox. If you don't have or want to use it, just set the value to None. |
