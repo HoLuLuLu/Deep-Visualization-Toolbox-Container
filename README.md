@@ -135,11 +135,12 @@ So, you only have to rename it with:
 ```
 cp settings_user.py.example settings_user.py
 ```
-If you want to use the default settings you only have to run the toolbox by:
+If you want to use the default settings and one of the example models you have to go into the models directory in models and run fetch.sh to get the required files.
+After this you can simply run the toolbox from the root directory of the toolbox by:
 ```
 ./run_toolbox.py
 ```
-Otherwise you can change it with a texeditor of your choice.
+In case that you want to make your own settings you need to install a text editor..
 In the container there is no editor installed by default, so you have to do it for your own.  
 This are the installation commands for three popular text editors in Ubuntu (only alphabetic order), chose one of them:
 ```
@@ -147,7 +148,9 @@ sudo apt-get install gedit # GUI-based easy-to-use editor and userfriendly (requ
 sudo apt-get install nano  # Terminal-based easy-to-use editor without mouse control, basic and efficient
 sudo apt-get install vim   # Terminal-based editor with big functionality but hard for beginner
 ```
-For more information about user settings see section "Configure User Settings" below.
+For more information about user settings see section "Configure User Settings" below.  
+
+To use your own network create an settings_modelname.py in model_settings directory and set this file up for your model (see section "Configure Model Settings").
 
 ### Configure User Settings
 The user specific settings are saved in the settings_user.py file in the root folder of the toolbox.
