@@ -17,7 +17,7 @@ Title = {Understanding Neural Networks Through Deep Visualization},
 Year = {2015}}
 ```
 
-In contrast to Poznanskis repository this Dockerfile the original caffe repository by BVLC.
+In contrast to Poznanskis repository this Dockerfile uses the original caffe repository by BVLC.
 The version by Poznanski can you find here:  
 https://github.com/arikpoz/caffe/  
 The official version by BVLC can you find here:  
@@ -125,7 +125,7 @@ After it you are in the bash of your container.
 
 Have Fun.
 
-## Run and Configure the Toolbox
+## Configure and Run the Toolbox
 Everything in this section happens in the directory /opt/deep-visualization-toolbox of the container.
 
 ## First Run
@@ -141,7 +141,7 @@ If you want to use the default settings you only have to run the toolbox by:
 ```
 Otherwise you can change it with a texeditor of your choice.
 In the container there is no editor installed by default, so you have to do it for your own.  
-This are the installation commands for three popular texteditors in Ubuntu, chose one of them:
+This are the installation commands for three popular text editors in Ubuntu (only alphabetic order), chose one of them:
 ```
 sudo apt-get install gedit # GUI-based easy-to-use editor and userfriendly (requires much memory)
 sudo apt-get install nano  # Terminal-based easy-to-use editor without mouse control, basic and efficient
@@ -158,4 +158,22 @@ There are some simple options you can configure:
 | caffevis_mode_gpu |  True or False | If True, the toolbox runs on GPU, else on CPU. |
 | caffevis_gpu_id |    device number   |   Sets the device id of the computation device (mostly the GPU). |
 | model_to_load | String with model name |  This sets the name of the model, which would be loaded by the toolbox. There have to exist also a settings_modelname.py in model_settings directory of the toolbox with model specific settings. |
-| input_updater_capture_device | device number or None |  Sets the device id of a camera, which can be used as input stream in the toolbox. If you don't have or want to use it, just set the value to None. |
+| input_updater_capture_device | device number or None |  Sets the device id of a camera, which can be used as input stream in the toolbox. If you don't have or dont't want to use it, just set the value to None. |
+
+### Configure Model Settings
+The model specific settings are saved in model_settings/settings_modelname.py, there modelname must be the name of your model which you set in model_to_load in settings_user.py.
+There are some options to set:
+
+| Option   |      Values   |  Description |
+|------------------------------|:-------------:|----------------------------------------------------|
+| base_folder | String with root directory of the toolbox (default: '%DVT_ROOT%/') | Sets the root directory of the toolbox, so you can set following paths related to it much easier. |
+| caffevis_deploy_prototxt | String with prototxt path | Sets the path to the prototxt of the model. |
+| caffevis_network_weights | String with network weights path | Sets the path to the trained weights of the model. |
+| caffevis_data_mean | String with mean file path | Sets the path to the mean file of the network. It's the average image of some dataset. Probably you have to convert it from binaryproto format to npy.  |
+| static_files_dir | String with input images folder path | Sets the path to the input images for the toolbox. The images will be processed by the toolbox to get activation and backprpagation data live. |
+| caffevis_label_layers | List of Strings | Sets the layers of the network, which you can assign the label clearly. In the toolbox the units of these layers will show the associated labels. |
+| caffevis_labels | String with labels path | Sets the path to the label file of your network. The labels have to be lineseparated. |
+| caffevis_prob_layer | String with probalitily layer name | Defines the name of the layer, that gives the probability for each label. |
+| caffevis_outputs_dir | String with outputs path | Sets the path for the outputs of the toolbox. In addition this directory contains the precalculated image sets for the maximal optimizatzion activation, the maximal activating images and the backpropagation of the maximal activating images. These sets you can see on the right side of the toolbox. |
+| layers_to_output_in_offline_scripts | List of Strings | Defines all the layers, which will be processed if you precalculate the image stes by your self. |
+| caffevis_outputs_dir_folder_format | 'original_combined_single_image' or 'max_tracker_output' | Defines the format of the caffevis_outputs_dir hierarchy. 'original_combined_single_image' is the old format produced by the scripts of Yosinski (needed for the default models if you use fetch.sh). 'max_tracker_output' is the new format produced by the scripts of Poznanski.
